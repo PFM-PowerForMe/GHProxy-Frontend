@@ -44,7 +44,7 @@ function fetchAPI() {
         { url: '/api/whitelist/status', elementId: 'whiteListStatus', successHandler: data => data.Whitelist ? '白名单：已启用' : '白名单：未启用' },
         { url: '/api/blacklist/status', elementId: 'blackListStatus', successHandler: data => data.Blacklist ? '黑名单：已启用' : '黑名单：未启用' },
         { url: '/api/smartgit/status', elementId: 'gitCloneCacheStatus', successHandler: data => data.enabled ? 'Git缓存：开启' : 'Git缓存：关闭' },
-        { url: '/api/version', elementId: 'versionBadge', successHandler: data => `版本：${data.Version}` },
+        { url: '/api/version', elementId: 'versionBadge', successHandler: data => `版本：${data.Version}` }
     ];
 
     apiEndpoints.forEach(endpoint => {

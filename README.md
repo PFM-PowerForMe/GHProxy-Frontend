@@ -16,7 +16,7 @@
 
 ## mino
 
-作者为 [@liangshengmoran](https://github.com/admin8800)
+作者为 [@admin8800](https://github.com/admin8800)
 
 许可证: MIT License Copyright (c) admin8800
 

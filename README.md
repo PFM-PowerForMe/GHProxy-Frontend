@@ -19,3 +19,15 @@
 在v3加入的新主题
 
 许可证: WJQserver Studio License v2.0
+
+## Classic
+
+来自GHProxy v1阶段的前端页面, 回味项目起点
+
+许可证: WJQserver Studio License v2.0
+
+## Metro
+
+磁贴风格
+
+许可证: WJQserver Studio License v2.0

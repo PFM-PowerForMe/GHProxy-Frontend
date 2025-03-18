@@ -14,6 +14,12 @@
 
 许可证: 作者尚未回复, 所有权利保留
 
+## mino
+
+作者为 [@liangshengmoran](https://github.com/admin8800)
+
+许可证: MIT License Copyright (c) admin8800
+
 ## Design
 
 在v3加入的新主题

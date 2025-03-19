@@ -12,7 +12,7 @@
 
 在 https://github.com/WJQSERVER-STUDIO/ghproxy/pull/49 加入的主题, 作者为 [@liangshengmoran](https://github.com/liangshengmoran)
 
-许可证: 作者尚未回复, 所有权利保留
+许可证: MIT License
 
 ## Design
 

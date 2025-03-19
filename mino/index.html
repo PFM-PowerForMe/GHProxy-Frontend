@@ -45,13 +45,30 @@
             <span class="label">加速域名：</span>
             <span class="current-url" id="current-url"></span>
         </div>
-        <footer class="footer">
-            <a href="https://github.com/WJQSERVER-STUDIO/ghproxy" target="_blank" class="github-link">
-                <i class="fab fa-github"></i>
-            </a>
-        </footer>
     </main>
-    
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="ghproxy-credit">
+                GHProxy Copyright © 2024-<span id="currentYear"></span> <a href="https://github.com/WJQSERVER-STUDIO" target="_blank" class="ghproxy-author">WJQSERVER-STUDIO</a>
+            </p>
+            <p class="theme-credit">
+                Mino Theme Copyright © 2025-<span id="themeYear"></span> <a href="https://github.com/admin8800" target="_blank" class="theme-author">admin8800</a>
+            </p>
+            <div class="social-links">
+                <a href="https://github.com/WJQSERVER-STUDIO/ghproxy" target="_blank" class="github-link" title="GitHub 仓库">
+                    <i class="fab fa-github fa-lg"></i>
+                </a>
+                <span class="separator">|</span>
+                <a href="https://t.me/ghproxy_go" target="_blank" class="telegram-link" title="Telegram 交流群">
+                    Telegram 交流群
+                </a>
+            </div>
+        </div>
+    </footer>
     <script src="script.js"></script>
+    <script>
+      document.getElementById('currentYear').textContent = new Date().getFullYear();
+      document.getElementById('themeYear').textContent = new Date().getFullYear();
+    </script>
 </body>
 </html>

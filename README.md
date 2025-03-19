@@ -14,6 +14,12 @@
 
 许可证: MIT License
 
+## mino
+
+作者为 [@admin8800](https://github.com/admin8800)
+
+许可证: MIT License Copyright (c) admin8800
+
 ## Design
 
 在v3加入的新主题

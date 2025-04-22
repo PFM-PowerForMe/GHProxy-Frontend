@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>页面未找到 - 404</title>
+    <title>{{.StatusCode}} - {{.StatusDesc}}</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -96,9 +96,12 @@
 </head>
 <body>
     <div class="container">
-        <div class="error-code">404</div>
-        <h1>页面未找到</h1>
-        <p>抱歉，您访问的页面不存在</p>
+        <div class="error-code">{{.StatusCode}}</div>
+        <h1>{{.StatusText}}</h1>
+        <p>{{.HelpInfo}}</p>
+        {{if .ErrorMessage}}
+        <p>{{.ErrorMessage}}</p>
+        {{end}}
         <a href="/" class="home-button">返回首页</a>
     </div>
 </body>

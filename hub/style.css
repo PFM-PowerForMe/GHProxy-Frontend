@@ -1,14 +1,12 @@
-
-/* GitHub-like Design System Variables */
 :root {
     --color-canvas-default: #ffffff;
     --color-canvas-subtle: #f6f8fa;
     --color-border-default: #d0d7de;
     --color-border-muted: #d8dee4;
-    --color-neutral-muted: #57606a; /* For borders on inputs sometimes */
+    --color-neutral-muted: #57606a;
     --color-accent-fg: #0969da;
     --color-accent-emphasis: #0969da;
-    --color-accent-muted: #ddf4ff; /* Lighter blue for hover on some items */
+    --color-accent-muted: #ddf4ff;
     --color-fg-default: #1f2328;
     --color-fg-muted: #57606a;
     --color-fg-subtle: #6e7781;
@@ -18,10 +16,10 @@
     --color-danger-fg: #cf222e;
     --color-danger-emphasis: #d1242f;
     --color-danger-subtle: #ffebe9;
-    --color-header-bg: #24292f; /* Darker header example */
+    --color-header-bg: #24292f;
     --color-header-text: #ffffff;
     --color-btn-text: #ffffff;
-    --color-btn-primary-bg: #1f883d; /* Green primary button */
+    --color-btn-primary-bg: #1f883d;
     --color-btn-primary-hover-bg: #1a7f37;
     --color-btn-primary-border: rgba(27,31,36,0.15);
     --color-btn-outline-text: #0969da;
@@ -44,10 +42,15 @@
     --borderRadius-small: 3px;
     --borderRadius-medium: 6px;
     --borderRadius-large: 12px;
+    --borderRadius-full: 50%;
 
     --shadow-small: 0 1px 0 rgba(27,31,36,0.04);
     --shadow-medium: 0 3px 6px rgba(140,149,159,0.15);
     --shadow-large: 0 8px 24px rgba(140,149,159,0.2);
+
+    --color-accent-fg-rgb: 9, 105, 218;
+    --color-success-fg-rgb: 26, 127, 55;
+    --color-danger-fg-rgb: 207, 34, 46;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -69,17 +72,21 @@
         --color-danger-fg: #f85149;
         --color-danger-emphasis: #da3633;
         --color-danger-subtle: rgba(248,81,73,0.1);
-        --color-header-bg: #161b22; /* Dark mode header */
+        --color-header-bg: #161b22;
         --color-header-text: #f0f6fc;
         --color-btn-text: #c9d1d9;
         --color-btn-primary-bg: #238636;
         --color-btn-primary-hover-bg: #2ea043;
-        --color-btn-primary-border: #30363d; /* Dark mode border */
+        --color-btn-primary-border: #30363d;
         --color-btn-outline-text: #58a6ff;
         --color-btn-outline-hover-text: #c9d1d9;
         --color-btn-outline-hover-bg: #58a6ff;
         --color-btn-outline-hover-border: #30363d;
         --color-btn-border: #30363d;
+
+        --color-accent-fg-rgb: 88, 166, 255;
+        --color-success-fg-rgb: 63, 185, 80;
+        --color-danger-fg-rgb: 248, 81, 73;
     }
 }
 
@@ -108,7 +115,7 @@ h1, h2, h3, h4, h5, h6 { margin-top: 0; margin-bottom: 0.5em; font-weight: 600; 
 h1 { font-size: var(--fontSize-xl); }
 h2 { font-size: var(--fontSize-large); }
 h3 { font-size: var(--fontSize-medium); }
-h4 { font-size: 1.15em; } /* Custom for h4 as GitHub uses it differently */
+h4 { font-size: 1.15em; }
 .f5 { font-size: var(--fontSize-small) !important; }
 
 
@@ -125,14 +132,14 @@ h4 { font-size: 1.15em; } /* Custom for h4 as GitHub uses it differently */
 }
 .container-md {
     width: 100%;
-    max-width: 768px; /* GitHub's medium container */
+    max-width: 768px;
     margin-right: auto;
     margin-left: auto;
     padding-right: var(--spacing-normal);
     padding-left: var(--spacing-normal);
     box-sizing: border-box;
 }
-@media (min-width: 1012px) { /* GitHub's large container breakpoint */
+@media (min-width: 1012px) {
     .container-lg { max-width: 1012px; }
 }
 
@@ -159,7 +166,7 @@ h4 { font-size: 1.15em; } /* Custom for h4 as GitHub uses it differently */
 }
 .AppHeader-logo { font-size: 28px !important; }
 
-/* Box Component (Card) */
+
 .Box {
     background-color: var(--color-canvas-subtle);
     border: 1px solid var(--color-border-default);
@@ -171,7 +178,7 @@ h4 { font-size: 1.15em; } /* Custom for h4 as GitHub uses it differently */
 .Box-header {
     padding: var(--spacing-normal);
     border-bottom: 1px solid var(--color-border-muted);
-    background-color: var(--color-canvas-subtle); /* Slightly different from body for depth */
+    background-color: var(--color-canvas-subtle);
     border-top-left-radius: var(--borderRadius-medium);
     border-top-right-radius: var(--borderRadius-medium);
 }
@@ -192,7 +199,7 @@ h4 { font-size: 1.15em; } /* Custom for h4 as GitHub uses it differently */
     color: var(--color-fg-muted);
 }
 
-/* Forms */
+
 .form-group {
     margin-bottom: var(--spacing-normal);
 }
@@ -204,7 +211,7 @@ h4 { font-size: 1.15em; } /* Custom for h4 as GitHub uses it differently */
 .form-control {
     display: block;
     width: 100%;
-    padding: var(--spacing-condensed) 12px; /* GitHub uses 5px 12px, adjusting for Material Icons */
+    padding: 5px 12px;
     font-size: var(--fontSize-base);
     line-height: 20px;
     color: var(--color-fg-default);
@@ -218,16 +225,12 @@ h4 { font-size: 1.15em; } /* Custom for h4 as GitHub uses it differently */
 .form-control:focus {
     border-color: var(--color-accent-fg);
     outline: none;
-    box-shadow: 0 0 0 3px rgba(var(--color-accent-fg-rgb, 9, 105, 218), 0.3); /* Create an RGB version for accent-fg if needed */
+    box-shadow: 0 0 0 3px rgba(var(--color-accent-fg-rgb), 0.3);
 }
-.form-control.input-block { /* Take full width */
-    /* Already default behavior */
-}
-.form-input-error {
-    display: block;
-    margin-top: var(--spacing-condensed);
-    font-size: var(--fontSize-small);
-    color: var(--color-danger-fg);
+.form-control.is-invalid,
+.form-control.is-invalid:focus {
+    border-color: var(--color-danger-fg);
+    box-shadow: 0 0 0 3px rgba(var(--color-danger-fg-rgb), 0.3);
 }
 
 .input-group {
@@ -245,20 +248,18 @@ h4 { font-size: 1.15em; } /* Custom for h4 as GitHub uses it differently */
 .input-group-button .btn {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
-    margin-left: -1px; /* Overlap borders */
+    margin-left: -1px;
 }
 .input-group-button .btn:not(:last-child) {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
 }
 
-
-/* Buttons */
 .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 5px 16px; /* GitHub's typical button padding */
+    padding: 5px 16px;
     font-size: var(--fontSize-base);
     font-weight: 500;
     line-height: 20px;
@@ -268,17 +269,17 @@ h4 { font-size: 1.15em; } /* Custom for h4 as GitHub uses it differently */
     user-select: none;
     border: 1px solid var(--color-btn-border);
     border-radius: var(--borderRadius-medium);
-    appearance: none; /* For <button> */
+    appearance: none;
     transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
-    text-decoration: none; /* For <a> styled as button */
+    text-decoration: none;
 }
 .btn .material-symbols-outlined {
     margin-right: 4px;
-    font-size: 16px !important; /* Match text size */
-    line-height: 1; /* Ensure icon aligns well */
+    font-size: 16px !important;
+    line-height: 1;
 }
 .btn.btn-block {
-    display: flex; /* Use flex to make it block level and center content */
+    display: flex;
     width: 100%;
     margin-top: var(--spacing-normal);
 }
@@ -293,8 +294,8 @@ h4 { font-size: 1.15em; } /* Custom for h4 as GitHub uses it differently */
     background-color: var(--color-btn-primary-hover-bg);
     text-decoration: none;
 }
-.btn-octicon { /* For icon-only buttons */
-    padding: 5px; /* Square padding */
+.btn-octicon {
+    padding: 5px;
     color: var(--color-fg-muted);
     background-color: var(--color-canvas-subtle);
     border-color: var(--color-btn-border);
@@ -307,7 +308,6 @@ h4 { font-size: 1.15em; } /* Custom for h4 as GitHub uses it differently */
     text-decoration: none;
 }
 
-/* Text Utilities */
 .text-gray { color: var(--color-fg-muted) !important; }
 .text-gray-light { color: var(--color-fg-subtle) !important; }
 .text-bold { font-weight: 600 !important; }
@@ -317,88 +317,98 @@ h4 { font-size: 1.15em; } /* Custom for h4 as GitHub uses it differently */
 .mr-2 { margin-right: var(--spacing-condensed) !important; }
 .p-3 { padding: var(--spacing-normal) !important; }
 
-/* Flex Utilities (subset for status cards) */
 .d-flex { display: flex !important; }
 .flex-items-center { align-items: center !important; }
 .flex-auto { flex: 1 1 auto !important; }
 
-
-/* Status Cards Layout (using GitHub's Primer CSS Layout utility ideas) */
 .Layout {
     display: flex;
     flex-wrap: wrap;
 }
 .Layout--gutter {
-    margin: calc(var(--spacing-normal) / -2); /* Negative margin for gutter */
+    margin: calc(var(--spacing-normal) / -2);
 }
 .Layout--gutter > .Layout-item {
-    padding: calc(var(--spacing-normal) / 2); /* Gutter padding */
+    padding: calc(var(--spacing-normal) / 2);
     box-sizing: border-box;
 }
 .Layout-item {
-    flex-basis: 0; /* Distribute space */
+    flex-basis: 100%; 
+    max-width: 100%;
     flex-grow: 1;
-    min-width: 0; /* Prevent overflow */
+    min-width: 0;
 }
-.col-12 { width: 100%; }
-@media (min-width: 768px) { /* md breakpoint */
-    .Layout--flowRow-until-md > .Layout-item {
-        /* Default behavior is row-like for flex items */
-    }
-    .col-md-6 {
+@media (min-width: 768px) {
+    .Layout-item.col-md-6 {
         flex-basis: 50%;
         max-width: 50%;
     }
 }
 
-
-/* Flash Messages (Toasts) */
 .flash-container {
     position: fixed;
-    bottom: var(--spacing-spacious);
-    left: 50%;
-    transform: translateX(-50%);
+    top: var(--spacing-spacious);
+    right: var(--spacing-spacious);
     z-index: 1000;
     width: auto;
-    max-width: 400px;
+    max-width: 400px; 
+    bottom: auto;
+    left: auto;
+    transform: none;
+    padding: 0; 
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; 
 }
+
 .flash {
     position: relative;
     padding: var(--spacing-normal);
-    margin-bottom: var(--spacing-normal);
+    margin-bottom: var(--spacing-condensed); 
     font-size: var(--fontSize-base);
     border: 1px solid var(--color-border-default);
     border-radius: var(--borderRadius-medium);
     color: var(--color-fg-default);
     background-color: var(--color-canvas-subtle);
     box-shadow: var(--shadow-medium);
-    animation: flash-slideInUp 0.3s ease-out, flash-fadeOut 0.5s 2.5s ease-in forwards;
+
+    animation: flash-fadeIn 0.3s ease-out forwards, flash-fadeOut 0.5s 2.5s ease-in forwards;
+
+    width: 100%; 
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
 }
+
 .flash .material-symbols-outlined {
     margin-right: var(--spacing-condensed);
     vertical-align: text-bottom;
+    flex-shrink: 0;
 }
+
 .flash--success {
     color: var(--color-success-fg);
     background-color: var(--color-success-subtle);
-    border-color: rgba(var(--color-success-fg-rgb, 26, 127, 55), 0.4); /* Define --color-success-fg-rgb if needed */
+    border-color: rgba(var(--color-success-fg-rgb), 0.4);
 }
-.flash--error { /* Can be used for input errors too */
+
+.flash--error {
     color: var(--color-danger-fg);
     background-color: var(--color-danger-subtle);
-    border-color: rgba(var(--color-danger-fg-rgb, 207, 34, 46), 0.4); /* Define --color-danger-fg-rgb if needed */
+    border-color: rgba(var(--color-danger-fg-rgb), 0.4);
 }
-@keyframes flash-slideInUp {
-    from { transform: translateY(20px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+
+@keyframes flash-fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
+
 @keyframes flash-fadeOut {
     from { opacity: 1; }
     to { opacity: 0; visibility: hidden; }
 }
 
-
-/* Version Badge */
 .version-badge {
     position: fixed;
     bottom: var(--spacing-normal);
@@ -409,12 +419,11 @@ h4 { font-size: 1.15em; } /* Custom for h4 as GitHub uses it differently */
     color: var(--color-fg-muted);
     background-color: var(--color-canvas-subtle);
     border: 1px solid var(--color-border-default);
-    border-radius: var(--borderRadius-full); /* Pill shape */
+    border-radius: var(--borderRadius-full);
     box-shadow: var(--shadow-small);
     z-index: 999;
 }
 
-/* Footer */
 .AppFooter {
     padding: var(--spacing-spacious) 0;
     margin-top: var(--spacing-spacious);
@@ -429,8 +438,3 @@ h4 { font-size: 1.15em; } /* Custom for h4 as GitHub uses it differently */
 .AppFooter .Link--secondary:hover {
     color: var(--color-accent-fg);
 }
-
-/* RGB Variables for box-shadows with alpha (example for accent-fg) */
-/* Add these to :root if you use them extensively for focus rings etc. */
-/* :root { --color-accent-fg-rgb: 9, 105, 218; } */
-/* @media (prefers-color-scheme: dark) { :root { --color-accent-fg-rgb: 88, 166, 255; } } */

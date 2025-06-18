@@ -1,3 +1,4 @@
+// 获取页面上的主要DOM元素
 const githubForm = document.getElementById('github-form');
 const githubLinkInput = document.getElementById('githubLinkInput');
 const formattedLinkOutput = document.getElementById('formattedLinkOutput');
@@ -6,8 +7,12 @@ const copyButton = document.getElementById('copyButton');
 const openButton = document.getElementById('openButton');
 const toast = document.getElementById('toast');
 const githubLinkError = document.getElementById('githubLinkError');
-const customApiDataContainer = document.getElementById('customApiData');
+const formatToggle = document.getElementById('format-toggle');
 
+/**
+ * 显示一个短暂的提示消息 (Toast)。
+ * @param {string} message - 要显示的消息内容。
+ */
 function showToast(message) {
     const toastMessage = document.getElementById('toastMessage');
     toastMessage.textContent = message;
@@ -17,156 +22,167 @@ function showToast(message) {
     }, 3000);
 }
 
-function formatGithubLink(githubLink) {
-    const currentHost = window.location.host;
-    let formattedLink = "";
+/**
+ * 根据用户输入和所选格式生成最终的输出链接或命令。
+ * @param {string} githubLink - 用户输入的原始链接。
+ * @param {string} format - 选择的输出格式 ('direct', 'git', 'wget', 'docker')。
+ * @returns {object} 包含生成结果的对象 { link: string, isUrl: boolean, error?: string }。
+ */
+function generateOutput(githubLink, format) {
+    const base_url = window.location.origin;
+    let normalizedLink = githubLink.trim();
 
-    if (githubLink.startsWith("https://github.com/") || githubLink.startsWith("http://github.com/")) {
-        formattedLink = window.location.protocol + "//" + currentHost + "/github.com" + githubLink.substring(githubLink.indexOf("/", 8));
-    } else if (githubLink.startsWith("github.com/")) {
-        formattedLink = window.location.protocol + "//" + currentHost + "/" + githubLink;
-    } else if (githubLink.startsWith("https://raw.githubusercontent.com/") || githubLink.startsWith("http://raw.githubusercontent.com/")) {
-        formattedLink = window.location.protocol + "//" + currentHost + githubLink.substring(githubLink.indexOf("/", 7));
-    } else if (githubLink.startsWith("raw.githubusercontent.com/")) {
-        formattedLink = window.location.protocol + "//" + currentHost + "/" + githubLink;
-    } else if (githubLink.startsWith("https://gist.githubusercontent.com/") || githubLink.startsWith("http://gist.githubusercontent.com/")) {
-        formattedLink = window.location.protocol + "//" + currentHost + "/gist.github.com" + githubLink.substring(githubLink.indexOf("/", 18));
-    } else if (githubLink.startsWith("gist.githubusercontent.com/")) {
-        formattedLink = window.location.protocol + "//" + currentHost + "/" + githubLink;
-    } else {
-        return null;
+    if (!/^https?:\/\//i.test(normalizedLink)) {
+        normalizedLink = 'https://' + normalizedLink;
     }
-    return formattedLink;
+
+    try {
+        const url = new URL(normalizedLink);
+        const proxyPath = url.hostname + url.pathname + url.search + url.hash;
+        const directLink = `${base_url}/${proxyPath}`;
+
+        switch (format) {
+            case 'git':
+                if (url.pathname.endsWith('.git')) {
+                    return { link: `git clone ${directLink}`, isUrl: false };
+                } else {
+                    return { link: '', isUrl: false, error: 'Input URL must end with .git for git clone' };
+                }
+            case 'wget':
+                return { link: `wget "${directLink}"`, isUrl: false };
+            case 'docker':
+                const dockerImageRef = `${window.location.host}/${proxyPath}`;
+                return { link: `docker pull ${dockerImageRef}`, isUrl: false };
+            case 'direct':
+            default:
+                return { link: directLink, isUrl: true };
+        }
+    } catch (e) {
+        return { error: 'Invalid URL format' };
+    }
 }
 
-
-
-githubForm.addEventListener('submit', function (e) {
-    e.preventDefault();
+/**
+ * 处理表单提交或格式切换的逻辑。
+ */
+function handleFormAction() {
     githubLinkError.textContent = ''; 
     githubLinkError.classList.remove('text-field__error--visible');
-    const githubLink = githubLinkInput.value.trim(); 
+    
+    const githubLink = githubLinkInput.value.trim();
+    const selectedFormat = formatToggle.querySelector('.active').dataset.value;
 
     if (!githubLink) {
-        githubLinkError.textContent = '请输入 GitHub 链接';
+        githubLinkError.textContent = 'Please enter a GitHub link';
         githubLinkError.classList.add('text-field__error--visible');
-        githubForm.querySelector("button").disabled = false;
         return; 
     }
 
-    const formattedLink = formatGithubLink(githubLink);
-    if (formattedLink) {
-        formattedLinkOutput.textContent = formattedLink;
-        output.style.display = 'block';
-    } else {
-        githubLinkError.textContent = '请输入有效的 GitHub 链接';
+    const result = generateOutput(githubLink, selectedFormat);
+
+    if (result.error) {
+        githubLinkError.textContent = result.error;
         githubLinkError.classList.add('text-field__error--visible');
+        output.style.display = 'none';
+    } else {
+        formattedLinkOutput.textContent = result.link;
+        output.style.display = result.link ? 'flex' : 'none';
+
+        openButton.disabled = !result.isUrl;
+    }
+}
+
+// 监听表单提交事件
+githubForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    handleFormAction();
+});
+
+// 为分段控件添加点击事件委托
+formatToggle.addEventListener('click', (e) => {
+    // 确保点击的是一个按钮且不是当前已激活的按钮
+    const button = e.target.closest('button');
+    if (!button || button.classList.contains('active')) {
+        return;
+    }
+    
+    // 更新按钮的激活状态
+    formatToggle.querySelector('.active')?.classList.remove('active');
+    button.classList.add('active');
+
+    // 如果输入框有内容, 则立即更新输出
+    if (githubLinkInput.value.trim()) {
+        handleFormAction();
     }
 });
 
+// 当用户在输入框中输入时, 清除错误提示
 githubLinkInput.addEventListener('input', () => {
     githubLinkError.textContent = '';
     githubLinkError.classList.remove('text-field__error--visible');
-    const button = githubForm.querySelector("button");
-    if (!githubLinkInput.value.trim()) {
-        button.disabled = false;
+});
+
+// 复制和打开按钮的事件监听
+copyButton.addEventListener('click', function () {
+    if (!formattedLinkOutput.textContent) return;
+    navigator.clipboard.writeText(formattedLinkOutput.textContent).then(() => {
+        showToast('Copied to clipboard');
+    }).catch(err => {
+        console.error('Failed to copy: ', err);
+        showToast('Failed to copy');
+    });
+});
+openButton.addEventListener('click', function () {
+    if (!openButton.disabled) {
+        window.open(formattedLinkOutput.textContent, '_blank');
     }
 });
 
-copyButton.addEventListener('click', function () {
-    navigator.clipboard.writeText(formattedLinkOutput.textContent).then(() => {
-        showToast('链接已复制到剪贴板');
-    }).catch(err => {
-        console.error('Failed to copy: ', err);
-        showToast("复制失败");
-    });
-});
-
-openButton.addEventListener('click', function () {
-    window.open(formattedLinkOutput.textContent, '_blank');
-});
-
-function fetchAPI() {
-    fetch('/api/size_limit')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            document.getElementById('sizeLimitDisplay').textContent = `${data.MaxResponseBodySize} MB`;
-        })
-        .catch(error => {
-            console.error("Error fetching size limit:", error);
-            document.getElementById('sizeLimitDisplay').textContent = 'Error';
-        });
-
-    fetch('/api/whitelist/status')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            document.getElementById('whiteListStatus').textContent = data.Whitelist ? '已开启' : '已关闭';
-        })
-        .catch(error => {
-            console.error("Error fetching whitelist status:", error);
-            document.getElementById('whiteListStatus').textContent = 'Error';
-        });
-
-    fetch('/api/blacklist/status')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            document.getElementById('blackListStatus').textContent = data.Blacklist ? '已开启' : '已关闭';
-        })
-        .catch(error => {
-            console.error("Error fetching blacklist status:", error);
-            document.getElementById('blacklistStatus').textContent = 'Error';
-        });
-
-    fetch('/api/version')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            document.getElementById('versionBadge').textContent = data.Version;
-        })
-        .catch(error => {
-            console.error("Error fetching version:", error);
-            document.getElementById('versionBadge').textContent = 'Error';
-        });
-
-    // --- Git Clone Cache Status ---
-    fetch('/api/smartgit/status')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.json(); // 假设 API 返回 JSON 数据
-        })
-        .then(data => {
-            const statusElement = document.getElementById('gitCloneCacheStatus');
-            if (data && typeof data.enabled !== 'undefined') {
-                statusElement.textContent = data.enabled ? '已开启' : '已关闭';
-            } else {
-                statusElement.textContent = '无法获取状态';
-            }
-        })
-        .catch(error => {
-            console.error("Error fetching Git Clone cache status:", error);
-            document.getElementById('gitCloneCacheStatus').textContent = '加载失败';
-        });
+/**
+ * 一个通用的 API 请求函数, 用于获取数据并更新UI。
+ * @param {string} endpoint - API 的路径。
+ * @param {string} elementId - 要更新的 HTML 元素的 ID。
+ * @param {function(object): string} formatter - 一个将 API 返回的 data 对象格式化为字符串的函数。
+ * @param {string} [errorText='Error'] - 发生错误时显示的文本。
+ */
+async function fetchData(endpoint, elementId, formatter, errorText = 'Error') {
+    const element = document.getElementById(elementId);
+    try {
+        const response = await fetch(endpoint);
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const data = await response.json();
+        element.textContent = formatter(data);
+    } catch (error) {
+        console.error(`Error fetching ${endpoint}:`, error);
+        element.textContent = errorText;
+    }
 }
 
-document.addEventListener('DOMContentLoaded', fetchAPI);
+
+// 页面加载时获取所有API数据
+function fetchAllApis() {
+    fetchData('/api/version', 'versionBadge', data => data.Version, 'N/A');
+    fetchData('/api/size_limit', 'sizeLimitDisplay', data => `${data.MaxResponseBodySize} MB`, '无法获取');
+    fetchData('/api/whitelist/status', 'whiteListStatus', data => data.Whitelist ? '已开启' : '已关闭', '无法获取');
+    fetchData('/api/blacklist/status', 'blackListStatus', data => data.Blacklist ? '已开启' : '已关闭', '无法获取');
+    fetchData('/api/smartgit/status', 'gitCloneCacheStatus', data => (data && typeof data.enabled !== 'undefined') ? (data.enabled ? '已开启' : '已关闭') : '无法获取', '无法获取');
+    
+    // 新增的API请求
+    fetchData('/api/oci_proxy/status', 'ociProxyStatus', data => {
+        if (data && typeof data.enabled !== 'undefined') {
+            if (!data.enabled) return '已关闭';
+            if (data.target === 'ghcr') return '使能 (目标: ghcr.io)';
+            if (data.target === 'dockerhub') return '使能 (目标: DockerHub)';
+            return '使能';
+        }
+        return '无法获取';
+    }, '无法获取');
+
+    fetchData('/api/shell_nest/status', 'shellNestStatus', data => (data && typeof data.enabled !== 'undefined') ? (data.enabled ? '已开启' : '已关闭') : '无法获取', '无法获取');
+}
+
+
+// DOM加载完成后执行API请求
+document.addEventListener('DOMContentLoaded', fetchAllApis);

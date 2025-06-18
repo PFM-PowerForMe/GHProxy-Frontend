@@ -27,6 +27,18 @@
                         <input type="text" class="text-field__input" id="githubLinkInput" placeholder="请键入需要代理的 GitHub 链接" required>
                         <div class="text-field__error" id="githubLinkError"></div>
                     </div>
+
+                    <!-- 新增: 使用分段控件替代单选按钮 -->
+                    <div class="format-selector">
+                        <label class="format-selector__label">选择输出格式:</label>
+                        <div id="format-toggle" class="segmented-control">
+                            <button type="button" class="segmented-control__button active" data-value="direct">直接链接</button>
+                            <button type="button" class="segmented-control__button" data-value="git">git clone</button>
+                            <button type="button" class="segmented-control__button" data-value="wget">wget</button>
+                            <button type="button" class="segmented-control__button" data-value="docker">docker pull</button>
+                        </div>
+                    </div>
+
                     <button type="submit" class="button button--filled">
                         <span class="material-symbols-outlined">link</span>
                         获取文件链接
@@ -44,7 +56,7 @@
                         </button>
                     </div>
                 </div>
-                <p class="helper-text">GitHub 链接带不带协议头均可，支持 release、archive 以及文件，转换后链接均可使用。</p>
+                <p class="helper-text">支持 release、archive、文件以及 Git 仓库链接, 转换后链接均可使用。</p>
             </div>
 
             <div class="status-cards">
@@ -66,7 +78,17 @@
                 <div class="card status-card">
                     <span class="material-symbols-outlined status-card__icon">cached</span>
                     <h2 class="status-card__title">Git Clone 缓存</h2>
-                    <p class="status-card__text" id="gitCloneCacheStatus">等待状态加载...</p>
+                    <p class="status-card__text" id="gitCloneCacheStatus">...</p>
+                </div>
+                <div class="card status-card">
+                    <span class="material-symbols-outlined status-card__icon">layers</span>
+                    <h2 class="status-card__title">OCI 代理状态</h2>
+                    <p class="status-card__text" id="ociProxyStatus">...</p>
+                </div>
+                <div class="card status-card">
+                    <span class="material-symbols-outlined status-card__icon">terminal</span>
+                    <h2 class="status-card__title">Shell Nest 状态</h2>
+                    <p class="status-card__text" id="shellNestStatus">...</p>
                 </div>
             </div>
 

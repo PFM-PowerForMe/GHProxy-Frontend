@@ -1,3 +1,4 @@
+/* [原始 CSS 代码保持不变] */
 :root {
     --md-sys-color-primary: #007aff;
     --md-sys-color-on-primary: #ffffff;
@@ -123,17 +124,6 @@ body {
     margin-bottom: 24px;
 }
 
-.card__title {
-    font-size: var(--md-sys-typescale-headline-small-size);
-    margin-bottom: 16px;
-    color: var(--md-sys-color-on-surface);
-}
-
-.card__content {
-    font-size: var(--md-sys-typescale-body-large-size);
-    color: var(--md-sys-color-on-surface);
-}
-
 .input-card__description {
     font-size: var(--md-sys-typescale-body-large-size);
     color: var(--md-sys-color-on-surface-variant);
@@ -143,12 +133,11 @@ body {
 .input-card__form {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 20px; /* 增加表单元素间距 */
 }
 
 .text-field {
     position: relative;
-    margin-bottom: 1.5rem;
 }
 
 .text-field__input {
@@ -175,6 +164,7 @@ body {
     margin-top: 4px;
     margin-left: 16px;
     display: none;
+    position: absolute;
 }
 
 .text-field__error--visible {
@@ -214,33 +204,34 @@ body {
 }
 
 .button--outlined {
-    background-color: rgba(var(--md-sys-color-on-surface-variant-rgb), 0.5);
+    background-color: transparent;
     color: var(--md-sys-color-on-surface-variant);
-    border: none;
+    border: 1px solid var(--md-sys-color-outline);
     padding: 6px;
-    border-radius: 8px;
-    width: auto;
-    height: auto;
-    min-width: 32px;
-    min-height: 32px;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
     box-shadow: none;
-    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s;
 }
 
 .button--outlined:hover {
-    background-color: rgba(var(--md-sys-color-primary-rgb), 0.12);
+    background-color: rgba(var(--md-sys-color-primary-rgb), 0.08);
+    border-color: var(--md-sys-color-primary);
     color: var(--md-sys-color-primary);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
 }
 
-.button--outlined:active {
-    background-color: rgba(var(--md-sys-color-primary-rgb), 0.24);
-    color: var(--md-sys-color-on-primary);
-    box-shadow: none;
+.button--outlined:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    border-color: var(--md-sys-color-outline);
+    background-color: transparent;
+    color: var(--md-sys-color-on-surface-variant);
 }
+
 
 .button--outlined>.material-symbols-outlined {
     font-size: 18px;
@@ -248,13 +239,11 @@ body {
 
 :root {
     --md-sys-color-primary-rgb: 0, 122, 255;
-    --md-sys-color-on-surface-variant-rgb: 129, 137, 126;
 }
 
 @media (prefers-color-scheme: dark) {
     :root {
         --md-sys-color-primary-rgb: 99, 177, 255;
-        --md-sys-color-on-surface-variant-rgb: 139, 147, 140;
     }
 }
 
@@ -263,8 +252,11 @@ body {
     background-color: var(--md-sys-color-surface);
     border-radius: 28px;
     padding: 16px;
+    padding-right: 90px; /* 为右侧按钮组留出空间 */
     margin-top: 16px;
     box-shadow: var(--md-sys-elevation-1);
+    display: flex;
+    align-items: center;
 }
 
 .output-area__pre {
@@ -277,7 +269,8 @@ body {
 
 .output-area__actions {
     position: absolute;
-    top: 12px;
+    top: 50%;
+    transform: translateY(-50%);
     right: 12px;
     display: flex;
     gap: 8px;
@@ -286,7 +279,7 @@ body {
 
 .status-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* 优化网格布局 */
     gap: 16px;
 }
 
@@ -295,7 +288,7 @@ body {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding: 16px;
+    padding: 20px 16px;
 }
 
 .status-card__icon {
@@ -314,6 +307,7 @@ body {
     font-size: var(--md-sys-typescale-body-large-size);
     color: var(--md-sys-color-on-surface-variant);
     margin: 0;
+    word-break: break-word; /* 避免长文本溢出 */
 }
 
 .helper-text {
@@ -339,59 +333,70 @@ body {
     text-decoration: underline;
 }
 
-.toast {
-    position: fixed;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: var(--md-sys-color-inverse-surface);
-    color: var(--md-sys-color-inverse-on-surface);
-    padding: 12px 20px;
-    border-radius: 4px;
-    box-shadow: var(--md-sys-elevation-3);
-    z-index: 1000;
-    display: none;
+/* ... Toast, Version Badge and Keyframes styles remain the same ... */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background-color:var(--md-sys-color-inverse-surface);color:var(--md-sys-color-inverse-on-surface);padding:12px 20px;border-radius:4px;box-shadow:var(--md-sys-elevation-3);z-index:1000;display:none}.toast--visible{display:block;animation:slideInUp .5s,fadeOut .5s 2s}.version-badge{position:fixed;bottom:20px;right:20px;background-color:var(--md-sys-color-secondary-container);color:var(--md-sys-color-on-secondary-container);padding:6px 12px;border-radius:20px;font-size:.8rem;box-shadow:var(--md-sys-elevation-1);transition:background-color .3s ease-in-out}.version-badge:hover{background-color:var(--md-sys-color-secondary);color:var(--md-sys-color-on-secondary)}@keyframes slideInUp{from{transform:translate(-50%,100%);opacity:0}to{transform:translate(-50%,0);opacity:1}}@keyframes fadeOut{from{opacity:1}to{opacity:0}}
+
+/* 新增: 分段控件样式 */
+.format-selector {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
-.toast--visible {
-    display: block;
-    animation: slideInUp 0.5s, fadeOut 0.5s 2s;
+.format-selector__label {
+    font-size: var(--md-sys-typescale-label-large-size);
+    color: var(--md-sys-color-on-surface-variant);
+    font-weight: 500;
+    padding-left: 4px;
 }
 
-.version-badge {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: var(--md-sys-color-secondary-container);
-    color: var(--md-sys-color-on-secondary-container);
-    padding: 6px 12px;
+.segmented-control {
+    display: flex;
+    flex-wrap: wrap; /* 在小屏幕上换行 */
+    gap: 6px; /* 按钮之间的间距 */
+    background-color: var(--md-sys-color-surface);
     border-radius: 20px;
-    font-size: 0.8rem;
+    padding: 4px;
+    border: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.segmented-control__button {
+    flex-grow: 1;
+    text-align: center;
+    padding: 8px 12px;
+    border: none;
+    background-color: transparent;
+    color: var(--md-sys-color-on-surface-variant);
+    border-radius: 16px;
+    cursor: pointer;
+    font-size: var(--md-sys-typescale-label-large-size);
+    font-weight: 500;
+    transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.segmented-control__button.active {
+    background-color: var(--md-sys-color-primary);
+    color: var(--md-sys-color-on-primary);
     box-shadow: var(--md-sys-elevation-1);
-    transition: background-color 0.3s ease-in-out;
 }
 
-.version-badge:hover {
-    background-color: var(--md-sys-color-secondary);
-    color: var(--md-sys-color-on-secondary);
-}
+/* 响应式改进 */
+@media (max-width: 600px) {
+    .container, .card, .app-bar {
+        padding-left: 16px;
+        padding-right: 16px;
+        border-radius: 24px;
+    }
 
-@keyframes slideInUp {
-    from {
-        transform: translate(-50%, 100%);
-        opacity: 0;
+    .output-area {
+        padding-right: 80px;
     }
-    to {
-        transform: translate(-50%, 0);
-        opacity: 1;
-    }
-}
 
-@keyframes fadeOut {
-    from {
-        opacity: 1;
+    .status-cards {
+        grid-template-columns: 1fr 1fr; /* 小屏幕上固定两列 */
     }
-    to {
-        opacity: 0;
+
+    .app-bar__title {
+        font-size: 22px; /* 减小标题字体大小 */
     }
 }

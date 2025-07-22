@@ -1,4 +1,4 @@
-// 获取页面上的主要DOM元素
+// DOM Elements
 const githubForm = document.getElementById('github-form');
 const githubLinkInput = document.getElementById('githubLinkInput');
 const formattedLinkOutput = document.getElementById('formattedLinkOutput');
@@ -66,16 +66,16 @@ function generateOutput(githubLink, format) {
  * 处理表单提交或格式切换的逻辑。
  */
 function handleFormAction() {
-    githubLinkError.textContent = ''; 
+    githubLinkError.textContent = '';
     githubLinkError.classList.remove('text-field__error--visible');
-    
+
     const githubLink = githubLinkInput.value.trim();
     const selectedFormat = formatToggle.querySelector('.active').dataset.value;
 
     if (!githubLink) {
         githubLinkError.textContent = 'Please enter a GitHub link';
         githubLinkError.classList.add('text-field__error--visible');
-        return; 
+        return;
     }
 
     const result = generateOutput(githubLink, selectedFormat);
@@ -98,23 +98,44 @@ githubForm.addEventListener('submit', function (e) {
     handleFormAction();
 });
 
+// --- Segmented Control Slider ---
+const slider = document.createElement('div');
+slider.className = 'segmented-control__slider';
+formatToggle.prepend(slider);
+
+function updateSliderPosition() {
+    const activeButton = formatToggle.querySelector('.active');
+    if (activeButton) {
+        const rect = activeButton.getBoundingClientRect();
+        const containerRect = formatToggle.getBoundingClientRect();
+        slider.style.width = `${rect.width}px`;
+        slider.style.transform = `translateX(${rect.left - containerRect.left}px)`;
+    }
+}
+
 // 为分段控件添加点击事件委托
 formatToggle.addEventListener('click', (e) => {
-    // 确保点击的是一个按钮且不是当前已激活的按钮
     const button = e.target.closest('button');
     if (!button || button.classList.contains('active')) {
         return;
     }
-    
-    // 更新按钮的激活状态
+
     formatToggle.querySelector('.active')?.classList.remove('active');
     button.classList.add('active');
 
-    // 如果输入框有内容, 则立即更新输出
+    updateSliderPosition();
+
     if (githubLinkInput.value.trim()) {
         handleFormAction();
     }
 });
+
+// Initial slider position
+document.addEventListener('DOMContentLoaded', () => {
+    // Timeout to ensure correct initial rendering
+    setTimeout(updateSliderPosition, 50);
+});
+window.addEventListener('resize', updateSliderPosition);
 
 // 当用户在输入框中输入时, 清除错误提示
 githubLinkInput.addEventListener('input', () => {
@@ -161,26 +182,38 @@ async function fetchData(endpoint, elementId, formatter, errorText = 'Error') {
 }
 
 
+/**
+ * 格式化API状态的通用函数
+ * @param {object} data - API返回的数据
+ * @returns {string} - 格式化后的状态文本
+ */
+function formatStatus(data) {
+    if (data && typeof data.enabled !== 'undefined') {
+        return data.enabled ? '已开启' : '已关闭';
+    }
+    return '无法获取';
+}
+
 // 页面加载时获取所有API数据
 function fetchAllApis() {
     fetchData('/api/version', 'versionBadge', data => data.Version, 'N/A');
     fetchData('/api/size_limit', 'sizeLimitDisplay', data => `${data.MaxResponseBodySize} MB`, '无法获取');
     fetchData('/api/whitelist/status', 'whiteListStatus', data => data.Whitelist ? '已开启' : '已关闭', '无法获取');
     fetchData('/api/blacklist/status', 'blackListStatus', data => data.Blacklist ? '已开启' : '已关闭', '无法获取');
-    fetchData('/api/smartgit/status', 'gitCloneCacheStatus', data => (data && typeof data.enabled !== 'undefined') ? (data.enabled ? '已开启' : '已关闭') : '无法获取', '无法获取');
-    
-    // 新增的API请求
+    fetchData('/api/smartgit/status', 'gitCloneCacheStatus', formatStatus, '无法获取');
+
     fetchData('/api/oci_proxy/status', 'ociProxyStatus', data => {
         if (data && typeof data.enabled !== 'undefined') {
             if (!data.enabled) return '已关闭';
-            if (data.target === 'ghcr') return '使能 (目标: ghcr.io)';
-            if (data.target === 'dockerhub') return '使能 (目标: DockerHub)';
-            return '使能';
+            let target = '';
+            if (data.target === 'ghcr') target = ' (目标: ghcr.io)';
+            else if (data.target === 'dockerhub') target = ' (目标: DockerHub)';
+            return `已开启${target}`;
         }
         return '无法获取';
     }, '无法获取');
 
-    fetchData('/api/shell_nest/status', 'shellNestStatus', data => (data && typeof data.enabled !== 'undefined') ? (data.enabled ? '已开启' : '已关闭') : '无法获取', '无法获取');
+    fetchData('/api/shell_nest/status', 'shellNestStatus', formatStatus, '无法获取');
 }
 
 

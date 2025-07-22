@@ -1,76 +1,113 @@
-/* [原始 CSS 代码保持不变] */
+/* Material Design 3 Color Tokens */
 :root {
-    --md-sys-color-primary: #007aff;
-    --md-sys-color-on-primary: #ffffff;
-    --md-sys-color-primary-container: #e0e0ff;
-    --md-sys-color-on-primary-container: #001a41;
-    --md-sys-color-secondary: #52634f;
-    --md-sys-color-on-secondary: #ffffff;
-    --md-sys-color-secondary-container: #d5e8ce;
-    --md-sys-color-on-secondary-container: #101f0f;
-    --md-sys-color-surface: #f5f5f5;
-    --md-sys-color-on-surface: #1a1c18;
-    --md-sys-color-surface-variant: #dee3d8;
-    --md-sys-color-on-surface-variant: #41493f;
-    --md-sys-color-outline: #71796e;
-    --md-sys-color-outline-variant: #c1c9bd;
-    --md-sys-color-inverse-surface: #2f312d;
-    --md-sys-color-inverse-on-surface: #f0f1ec;
-    --md-sys-color-inverse-primary: #b0ccff;
-    --md-sys-color-surface-container-highest: #E6E6E6;
-    --md-sys-color-error: #ba1a1a;
-    --md-sys-color-on-error: #ffffff;
-    --md-sys-color-error-container: #ffdad6;
+    /* 主题基色 */
+    --md-ref-palette-primary0: #000000;
+    --md-ref-palette-primary10: #001F28;
+    --md-ref-palette-primary20: #003544;
+    --md-ref-palette-primary30: #004D61;
+    --md-ref-palette-primary40: #006780;
+    --md-ref-palette-primary50: #0082A0;
+    --md-ref-palette-primary60: #009DCF;
+    --md-ref-palette-primary70: #3AB6E9;
+    --md-ref-palette-primary80: #62D4FF;
+    --md-ref-palette-primary90: #B8EAFF;
+    --md-ref-palette-primary95: #DCF5FF;
+    --md-ref-palette-primary98: #F1FAFF;
+    --md-ref-palette-primary99: #F8FDFF;
+    --md-ref-palette-primary100: #FFFFFF;
+
+    /* 系统颜色角色 */
+    --md-sys-color-primary: var(--md-ref-palette-primary40);
+    --md-sys-color-on-primary: var(--md-ref-palette-primary100);
+    --md-sys-color-primary-container: var(--md-ref-palette-primary90);
+    --md-sys-color-on-primary-container: var(--md-ref-palette-primary10);
+    --md-sys-color-secondary: #4E6262;
+    --md-sys-color-on-secondary: #FFFFFF;
+    --md-sys-color-secondary-container: #D1E7E6;
+    --md-sys-color-on-secondary-container: #091F1F;
+    --md-sys-color-tertiary: #5C5D7E;
+    --md-sys-color-on-tertiary: #FFFFFF;
+    --md-sys-color-tertiary-container: #E2E0FF;
+    --md-sys-color-on-tertiary-container: #191A37;
+    --md-sys-color-error: #BA1A1A;
+    --md-sys-color-on-error: #FFFFFF;
+    --md-sys-color-error-container: #FFDAD6;
     --md-sys-color-on-error-container: #410002;
-    --md-sys-elevation-1: 0 2px 8px rgba(0, 0, 0, 0.1);
-    --md-sys-elevation-2: 0 4px 12px rgba(0, 0, 0, 0.15);
-    --md-sys-elevation-3: 0 6px 16px rgba(0, 0, 0, 0.2);
-    --md-sys-typescale-display-large-font-family: 'Roboto', sans-serif;
-    --md-sys-typescale-display-large-size: 57px;
-    --md-sys-typescale-display-large-line-height: 64px;
-    --md-sys-typescale-display-large-weight: 400;
-    --md-sys-typescale-body-large-font-family: 'Roboto', sans-serif;
-    --md-sys-typescale-body-large-size: 16px;
-    --md-sys-typescale-body-large-line-height: 24px;
-    --md-sys-typescale-body-large-weight: 400;
-    --md-sys-typescale-body-small-font-family: 'Roboto', sans-serif;
-    --md-sys-typescale-body-small-size: 12px;
-    --md-sys-typescale-body-small-line-height: 16px;
-    --md-sys-typescale-body-small-weight: 400;
-    --md-sys-typescale-label-large-font-family: 'Roboto', sans-serif;
+    --md-sys-color-background: #FAFDFD;
+    --md-sys-color-on-background: #191C1C;
+    --md-sys-color-surface: #FAFDFD;
+    --md-sys-color-on-surface: #191C1C;
+    --md-sys-color-surface-variant: #DAE4E5;
+    --md-sys-color-on-surface-variant: #3F4849;
+    --md-sys-color-outline: #6F7979;
+    --md-sys-color-outline-variant: #BFC8C9;
+    --md-sys-color-shadow: #000000;
+    --md-sys-color-scrim: #000000;
+    --md-sys-color-inverse-surface: #2E3131;
+    --md-sys-color-inverse-on-surface: #EFF1F1;
+    --md-sys-color-inverse-primary: var(--md-ref-palette-primary80);
+    --md-sys-color-surface-dim: #D9DDDD;
+    --md-sys-color-surface-bright: #FAFDFD;
+    --md-sys-color-surface-container-lowest: #FFFFFF;
+    --md-sys-color-surface-container-low: #F3F7F7;
+    --md-sys-color-surface-container: #EDF1F2;
+    --md-sys-color-surface-container-high: #E7EBEC;
+    --md-sys-color-surface-container-highest: #E1E5E6;
+
+    /* Typescale Tokens */
+    --md-sys-typescale-label-large-font: 'Roboto', sans-serif;
+    --md-sys-typescale-label-large-weight: 500;
     --md-sys-typescale-label-large-size: 14px;
     --md-sys-typescale-label-large-line-height: 20px;
-    --md-sys-typescale-label-large-weight: 500;
-    --md-sys-typescale-headline-small-font-family: 'Roboto', sans-serif;
+    --md-sys-typescale-body-large-font: 'Roboto', sans-serif;
+    --md-sys-typescale-body-large-weight: 400;
+    --md-sys-typescale-body-large-size: 16px;
+    --md-sys-typescale-body-large-line-height: 24px;
+    --md-sys-typescale-headline-small-font: 'Roboto', sans-serif;
+    --md-sys-typescale-headline-small-weight: 400;
     --md-sys-typescale-headline-small-size: 24px;
     --md-sys-typescale-headline-small-line-height: 32px;
-    --md-sys-typescale-headline-small-weight: 500;
 }
 
+/* Dark Theme */
 @media (prefers-color-scheme: dark) {
     :root {
-        --md-sys-color-primary: #63b1ff;
-        --md-sys-color-on-primary: #003258;
-        --md-sys-color-primary-container: #00497d;
-        --md-sys-color-on-primary-container: #d2e4ff;
-        --md-sys-color-secondary: #b9ccb3;
-        --md-sys-color-on-secondary: #253423;
-        --md-sys-color-secondary-container: #3b4b39;
-        --md-sys-color-on-secondary-container: #d5e8ce;
-        --md-sys-color-surface: #1a1c18;
-        --md-sys-color-on-surface: #e2e3dd;
-        --md-sys-color-surface-variant: #41493f;
-        --md-sys-color-on-surface-variant: #c1c9bd;
-        --md-sys-color-outline: #8b9388;
-        --md-sys-color-outline-variant: #41493f;
-        --md-sys-color-inverse-surface: #e2e3dd;
-        --md-sys-color-inverse-on-surface: #1a1c18;
-        --md-sys-color-inverse-primary: #0061a4;
-        --md-sys-color-surface-container-highest: #363636;
-        --md-sys-color-error: #ffb4ab;
+        --md-sys-color-primary: var(--md-ref-palette-primary80);
+        --md-sys-color-on-primary: var(--md-ref-palette-primary20);
+        --md-sys-color-primary-container: var(--md-ref-palette-primary30);
+        --md-sys-color-on-primary-container: var(--md-ref-palette-primary90);
+        --md-sys-color-secondary: #B5CBCB;
+        --md-sys-color-on-secondary: #203333;
+        --md-sys-color-secondary-container: #374A4A;
+        --md-sys-color-on-secondary-container: #D1E7E6;
+        --md-sys-color-tertiary: #C5C4EB;
+        --md-sys-color-on-tertiary: #2E2F4D;
+        --md-sys-color-tertiary-container: #444564;
+        --md-sys-color-on-tertiary-container: #E2E0FF;
+        --md-sys-color-error: #FFB4AB;
         --md-sys-color-on-error: #690005;
-        --md-sys-color-error-container: #93000a;
-        --md-sys-color-on-error-container: #ffdad6;
+        --md-sys-color-error-container: #93000A;
+        --md-sys-color-on-error-container: #FFB4AB;
+        --md-sys-color-background: #191C1C;
+        --md-sys-color-on-background: #E1E3E3;
+        --md-sys-color-surface: #191C1C;
+        --md-sys-color-on-surface: #E1E3E3;
+        --md-sys-color-surface-variant: #3F4849;
+        --md-sys-color-on-surface-variant: #BFC8C9;
+        --md-sys-color-outline: #899293;
+        --md-sys-color-outline-variant: #3F4849;
+        --md-sys-color-shadow: #000000;
+        --md-sys-color-scrim: #000000;
+        --md-sys-color-inverse-surface: #E1E3E3;
+        --md-sys-color-inverse-on-surface: #191C1C;
+        --md-sys-color-inverse-primary: var(--md-ref-palette-primary40);
+        --md-sys-color-surface-dim: #101414;
+        --md-sys-color-surface-bright: #363A3A;
+        --md-sys-color-surface-container-lowest: #0E1111;
+        --md-sys-color-surface-container-low: #191C1C;
+        --md-sys-color-surface-container: #1D2020;
+        --md-sys-color-surface-container-high: #272B2B;
+        --md-sys-color-surface-container-highest: #323636;
     }
 }
 
@@ -133,7 +170,8 @@ body {
 .input-card__form {
     display: flex;
     flex-direction: column;
-    gap: 20px; /* 增加表单元素间距 */
+    gap: 20px;
+    /* 增加表单元素间距 */
 }
 
 .text-field {
@@ -252,7 +290,8 @@ body {
     background-color: var(--md-sys-color-surface);
     border-radius: 28px;
     padding: 16px;
-    padding-right: 90px; /* 为右侧按钮组留出空间 */
+    padding-right: 90px;
+    /* 为右侧按钮组留出空间 */
     margin-top: 16px;
     box-shadow: var(--md-sys-elevation-1);
     display: flex;
@@ -279,7 +318,8 @@ body {
 
 .status-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* 优化网格布局 */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    /* 优化网格布局 */
     gap: 16px;
 }
 
@@ -307,7 +347,8 @@ body {
     font-size: var(--md-sys-typescale-body-large-size);
     color: var(--md-sys-color-on-surface-variant);
     margin: 0;
-    word-break: break-word; /* 避免长文本溢出 */
+    word-break: break-word;
+    /* 避免长文本溢出 */
 }
 
 .helper-text {
@@ -334,7 +375,64 @@ body {
 }
 
 /* ... Toast, Version Badge and Keyframes styles remain the same ... */
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background-color:var(--md-sys-color-inverse-surface);color:var(--md-sys-color-inverse-on-surface);padding:12px 20px;border-radius:4px;box-shadow:var(--md-sys-elevation-3);z-index:1000;display:none}.toast--visible{display:block;animation:slideInUp .5s,fadeOut .5s 2s}.version-badge{position:fixed;bottom:20px;right:20px;background-color:var(--md-sys-color-secondary-container);color:var(--md-sys-color-on-secondary-container);padding:6px 12px;border-radius:20px;font-size:.8rem;box-shadow:var(--md-sys-elevation-1);transition:background-color .3s ease-in-out}.version-badge:hover{background-color:var(--md-sys-color-secondary);color:var(--md-sys-color-on-secondary)}@keyframes slideInUp{from{transform:translate(-50%,100%);opacity:0}to{transform:translate(-50%,0);opacity:1}}@keyframes fadeOut{from{opacity:1}to{opacity:0}}
+.toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--md-sys-color-inverse-surface);
+    color: var(--md-sys-color-inverse-on-surface);
+    padding: 12px 20px;
+    border-radius: 4px;
+    box-shadow: var(--md-sys-elevation-3);
+    z-index: 1000;
+    display: none
+}
+
+.toast--visible {
+    display: block;
+    animation: slideInUp .5s, fadeOut .5s 2s
+}
+
+.version-badge {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--md-sys-color-secondary-container);
+    color: var(--md-sys-color-on-secondary-container);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: .8rem;
+    box-shadow: var(--md-sys-elevation-1);
+    transition: background-color .3s ease-in-out
+}
+
+.version-badge:hover {
+    background-color: var(--md-sys-color-secondary);
+    color: var(--md-sys-color-on-secondary)
+}
+
+@keyframes slideInUp {
+    from {
+        transform: translate(-50%, 100%);
+        opacity: 0
+    }
+
+    to {
+        transform: translate(-50%, 0);
+        opacity: 1
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1
+    }
+
+    to {
+        opacity: 0
+    }
+}
 
 /* 新增: 分段控件样式 */
 .format-selector {
@@ -351,10 +449,11 @@ body {
 }
 
 .segmented-control {
+    position: relative;
     display: flex;
-    flex-wrap: wrap; /* 在小屏幕上换行 */
-    gap: 6px; /* 按钮之间的间距 */
-    background-color: var(--md-sys-color-surface);
+    flex-wrap: wrap;
+    gap: 6px;
+    background-color: var(--md-sys-color-surface-container-high);
     border-radius: 20px;
     padding: 4px;
     border: 1px solid var(--md-sys-color-outline-variant);
@@ -371,18 +470,32 @@ body {
     cursor: pointer;
     font-size: var(--md-sys-typescale-label-large-size);
     font-weight: 500;
-    transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+    transition: color 0.3s ease;
+    z-index: 1;
 }
 
 .segmented-control__button.active {
-    background-color: var(--md-sys-color-primary);
     color: var(--md-sys-color-on-primary);
+}
+
+.segmented-control__slider {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    height: calc(100% - 8px);
+    background-color: var(--md-sys-color-primary);
+    border-radius: 16px;
     box-shadow: var(--md-sys-elevation-1);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 0;
 }
 
 /* 响应式改进 */
 @media (max-width: 600px) {
-    .container, .card, .app-bar {
+
+    .container,
+    .card,
+    .app-bar {
         padding-left: 16px;
         padding-right: 16px;
         border-radius: 24px;
@@ -393,10 +506,12 @@ body {
     }
 
     .status-cards {
-        grid-template-columns: 1fr 1fr; /* 小屏幕上固定两列 */
+        grid-template-columns: 1fr 1fr;
+        /* 小屏幕上固定两列 */
     }
 
     .app-bar__title {
-        font-size: 22px; /* 减小标题字体大小 */
+        font-size: 22px;
+        /* 减小标题字体大小 */
     }
 }

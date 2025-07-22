@@ -23,13 +23,14 @@
                 <p class="input-card__description">为 GitHub 文件访问提供加速服务</p>
                 <form id="github-form" class="input-card__form">
                     <div class="text-field">
-                        <input type="text" class="text-field__input" id="githubLinkInput" placeholder="请在此处输入 GitHub 链接">
+                        <input type="text" class="text-field__input" id="githubLinkInput" placeholder="请在此处输入 GitHub 链接或 Docker 镜像名">
                         <div class="text-field__error" id="githubLinkError"></div>
                     </div>
 
                     <div class="format-selector">
                         <label class="format-selector__label">选择输出格式:</label>
                         <div id="format-toggle" class="segmented-control">
+                            <div class="segmented-control__slider"></div>
                             <button type="button" class="segmented-control__button active" data-value="direct">直接链接</button>
                             <button type="button" class="segmented-control__button" data-value="git">Git Clone</button>
                             <button type="button" class="segmented-control__button" data-value="wget">Wget</button>
@@ -89,7 +90,6 @@
                     <p class="info-card__text" id="shellNestStatus">...</p>
                 </div>
             </div>
-
         </main>
 
         <footer class="footer">
@@ -109,5 +109,4 @@
 
     <script src="script.js"></script>
 </body>
-
 </html>

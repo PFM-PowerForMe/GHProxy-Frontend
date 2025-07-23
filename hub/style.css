@@ -438,3 +438,47 @@ h4 { font-size: 1.15em; }
 .AppFooter .Link--secondary:hover {
     color: var(--color-accent-fg);
 }
+
+.SegmentedControl {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: var(--color-canvas-default);
+    border-radius: var(--borderRadius-medium);
+    border: 1px solid var(--color-border-muted);
+    padding: 2px;
+}
+
+.SegmentedControl-button {
+    flex: 1 1 auto;
+    padding: 5px 12px;
+    font-size: var(--fontSize-small);
+    font-weight: 500;
+    line-height: 20px;
+    text-align: center;
+    color: var(--color-fg-muted);
+    background-color: transparent;
+    border: 0;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1), color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+    appearance: none;
+}
+
+.SegmentedControl-button:hover {
+    background-color: var(--color-canvas-subtle);
+}
+
+.SegmentedControl-button.is-selected {
+    background-color: var(--color-neutral-muted);
+    color: var(--color-canvas-default);
+    font-weight: 600;
+}
+
+.form-group .f5.text-gray-light {
+    margin-top: var(--spacing-condensed);
+    color: var(--color-danger-fg) !important;
+}
+
+.flash {
+    transition: opacity 0.5s ease;
+}
